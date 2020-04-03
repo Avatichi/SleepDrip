@@ -4,35 +4,6 @@ int G_led = 2;
 int ATD = 39;
 
 
-
-#define NUM_DES_LEN 9
-int num_pins[NUM_DES_LEN] = {13, 12, 14, 27, 26, 25, 35, 34};
-int case_1[NUM_DES_LEN] = {LOW, LOW,LOW,HIGH,LOW,LOW, LOW};
-int case_2[NUM_DES_LEN] = {HIGH,HIGH,LOW,HIGH,LOW,HIGH, LOW};
-
-
-void write_num(int num)
-{
-    int * reqest_value ;
-    switch (num)
-    {
-    case 1:
-        reqest_value = case_1;
-        break;
-    case2:
-        reqest_value = case_2;
-        break;
-    default:
-        break;
-    }
-    int i;
-    for (i = 0; i < NUM_DES_LEN; i++) {
-        digitalWrite(num_pins[i], HIGH);
-    }
-
-}
-
-
 void error()
 {
     digitalWrite(R_led, HIGH);
@@ -49,11 +20,6 @@ void setup() {
   digitalWrite(R_led, LOW);
   digitalWrite(G_led, LOW);
   digitalWrite(Y_led, LOW);
-
-    int i;
-    for (i = 0; i< NUM_DES_LEN ; i++) {
-        pinMode(num_pins[i], OUTPUT);
-    }
 
 }
 
@@ -93,11 +59,7 @@ int massure_presser()
 int result = 0;
 void loop() {
     int i;
-    for (i = 0; i < NUM_DES_LEN; i++) {
-        digitalWrite(num_pins[i], LOW);
-    }
     delay(1000);
-    write_num(3);
     if (!result) {
         result = massure_presser();
         delay(1000);
