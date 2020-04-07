@@ -1,6 +1,6 @@
 #include <math.h>
 
-// #include "screen_utils.h"
+#include "screen_utils.h"
 #include "adc_driver.h"
 #include "leds.h"
 
@@ -14,7 +14,7 @@ int G_led = 15;
 void setup()
 {
 	setup_leds();
-	//setup_screen();	
+	setup_screen();	
 	adc_setup();
     Serial.begin(115200);
 }
@@ -22,5 +22,5 @@ void setup()
 void loop() {
     delay(1000);
     int result = adc_read();
-	//screen_loop(result);
+	screen_loop(result);
 }
