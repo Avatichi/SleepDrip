@@ -7,10 +7,6 @@
 int ATD = 39;
 int BATTERY_ADC = 36;
 
-int atd2 = 38;
-int sw_1 = 19;
-int sw_2 = 23;
-
 int R_led = 13;
 int Y_led = 14;
 int G_led = 12;
@@ -20,11 +16,6 @@ int G_led = 12;
 int sample_array[1000] = {0};
 int sample_index = 0;
 int sample_per_sec = 100;
-
-/* For cc logic */
-int expected_injection_time = 5; // in CC / min
-int max_adc_value = 4096; // can change
-
 
 void setup()
 {
@@ -36,10 +27,11 @@ void setup()
 
 void loop()
 {
+	int cc_value = 0;
 	adc_read();
-	/* For debug only */
+
 	Serial.print("Sample ");
 	Serial.println(sample_array[sample_index - 1]); 
 	blinking_leds(logic_main());
-	screen_loop(50);
+	screen_loop(cc_value);
 }
