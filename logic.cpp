@@ -17,16 +17,9 @@ static status_t check_sec_potion()
 		start_index++;
 	}
 	else {
-		Serial.print("Expected ");
-		Serial.println(expected_adc_drop_sec);
-		Serial.print("diff ");
 		int diff =  sample_array[sample_index - sample_min_size] - sample_array[sample_index - 1];
-		Serial.println(diff);
-		
 		if (diff < expected_adc_drop_sec) {
 			adc_drop_counter++;
-			Serial.println(adc_drop_counter);
-
 			if (adc_drop_counter > Threshold_bad_injection) {
 				status = STATUS_WARNNING;
 			}
@@ -39,8 +32,6 @@ static status_t check_sec_potion()
 	return status;
 }
 
-
-/* Call this once per second */
 status_t logic_main()
 {
 	return check_sec_potion();

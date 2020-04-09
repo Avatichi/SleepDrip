@@ -1,7 +1,7 @@
 #include "adc_driver.h"
 
 
-int get_adc_value(int adc_pin)
+static int get_adc_value(int adc_pin)
 {
     /* This should take 1 sec */ 
     int i = 0;

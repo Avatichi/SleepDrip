@@ -7,13 +7,11 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);  // set the LCD address to 0x27 for a 16 cha
 void batterylevel()
 {
 	int i;
-
 	float vbat = (127.0f/100.0f) * 3.30f * float(analogRead(BATTERY_ADC)) / 4095.0f;
 	int bars = (4.2 - vbat) / 0.3;
 	
 	lcd.setCursor(1, 3);	
 	lcd.print("[");
-
 	for (i = 3; i >= 0; i--) {
 		if (i < bars) {
 			lcd.print(" ");

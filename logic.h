@@ -5,11 +5,11 @@
 
 #include "error_values.h"
 
+
 /* For raw values */
 extern int sample_array[];
 extern int sample_index;
 extern int sample_per_sec;
-
 
 /* For cc logic */
 extern int expected_injection_time;

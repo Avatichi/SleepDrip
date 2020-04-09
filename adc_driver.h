@@ -4,15 +4,12 @@
 #include <driver/adc.h>
 #include <Arduino.h>
 
+
 extern int ATD;
 
-
-
-/* For raw values */
 extern int sample_array[];
 extern int sample_index;
 extern int sample_per_sec;
-
 
 void adc_read();
 void adc_setup();

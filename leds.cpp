@@ -14,15 +14,14 @@ void setup_leds()
     pinMode(Y_led, OUTPUT);
     pinMode(G_led, OUTPUT);
     turn_off_all_leds();
-
 }
 
 /* This function change the led based on status
- * Green pulse - OK
+ * Green  - OK
  * Yellow - should refill
- * Red error
+ * Red    - error
  */
-void blinking_leds(status_t status)
+void leds_loop(status_t status)
 {
     turn_off_all_leds();
     blinking_status = !blinking_status;
@@ -38,4 +37,3 @@ void blinking_leds(status_t status)
             break;
     }
 }
-
