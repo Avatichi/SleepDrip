@@ -98,23 +98,23 @@ void setup_screen()
 
 void screen_loop(int inzector_value)
 {
-    if (inzector_value <= 50) {
-        lcd.setCursor(0, 2);
-        lcd.print("Status  BAD");
-        blinking_leds(STATUS_ERROR);
-    }
-    else if (inzector_value <= 100 ) {
-        lcd.setCursor(0, 2);
-        lcd.print("Status  BAD");
-        blinking_leds(STATUS_WARNNING);
+    // if (inzector_value <= 50) {
+    //     lcd.setCursor(0, 2);
+    //     lcd.print("Status  BAD");
+    //     blinking_leds(STATUS_ERROR);
+    // }
+    // else if (inzector_value <= 100 ) {
+    //     lcd.setCursor(0, 2);
+    //     lcd.print("Status  BAD");
+    //     blinking_leds(STATUS_WARNNING);
         
-    }
-    else {
-        lcd.setCursor(0, 2);
-        lcd.print("Status  OK ");
-        blinking_leds(STATUS_OK);
+    // }
+    // else {
+    //     lcd.setCursor(0, 2);
+    //     lcd.print("Status  OK ");
+    //     blinking_leds(STATUS_OK);
         
-    }
+    // }
     
     // batterylevel();
 
