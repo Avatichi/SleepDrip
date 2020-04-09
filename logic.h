@@ -1,12 +1,9 @@
 #ifndef __LOGIC_H__
 #define __LOGIC_H__
 
-/* NOTE: choose between < and " for ardunio libs */
 #include <Arduino.h>
-// #include <HardwareSerial.h>
 
-// extern HardwareSerial Serial;
-
+#include "error_values.h"
 
 /* For raw values */
 extern int sample_array[];
@@ -20,6 +17,6 @@ extern int max_adc_value;
 
 
 /* Call this once per second */
-int logic_main();
+status_t logic_main();
 
 #endif /* __LOGIC_H__ */

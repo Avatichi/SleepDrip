@@ -3,16 +3,12 @@
 
 #include <Arduino.h>
 
+#include "error_values.h"
 
 extern int R_led;
 extern int Y_led;
 extern int G_led;
 
-typedef enum  {
-    STATUS_OK = 0,
-    STATUS_WARNNING = 1,
-    STATUS_ERROR =2
-} status_t;
 
 static int blinking_status = 0;
 
