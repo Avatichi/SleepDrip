@@ -1,26 +1,28 @@
 #include "adc_driver.h"
 
+
 int get_adc_value(int adc_pin)
 {
+    /* This should take 1 sec */ 
     int i = 0;
+    int j = 0;
     int test_len = 1000;
+    int test_len2 = 100;
     int sum = 0;
-    for (i = 0; i < test_len; i ++) {
-        sum += analogRead(adc_pin);  
+
+    for (i = 0; i < test_len2; i ++) {
+        for (j = 0; j < test_len; j++) {
+            sum += analogRead(adc_pin); 
+        }
+        delay(10);
     }
-    return sum / test_len;
+    return sum / (test_len * test_len2);
 }
 
-int convert_to_cc_hour(int adc_value)
+void adc_read()
 {
-    return adc_value;
-}
-
-
-int adc_read()
-{
-    int value = get_adc_value(ATD);
-    return convert_to_cc_hour(value);
+    sample_array[sample_index] = get_adc_value(ATD);
+    sample_index ++;
 }
 
 void adc_setup()
