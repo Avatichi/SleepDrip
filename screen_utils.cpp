@@ -41,12 +41,28 @@ void setup_screen()
 	print_yehida();
 }
 
-void screen_loop(int CC_value)
+void print_status(status_t status)
+{
+	lcd.setCursor(0, 0);
+	switch (status) {
+		case STATUS_OK:
+			lcd.print("OK     ");
+			break;
+		case STATUS_WARNNING:
+			lcd.print("Warning");
+			break;
+		case STATUS_ERROR:
+			lcd.print("Error  ");
+			break;
+	}
+}
+
+void screen_loop(int CC_value, status_t status)
 {    
 	batterylevel();
-
-	lcd.setCursor(0, 0);
-	lcd.print("CC     ");
-	lcd.setCursor(4, 0);
+	print_status(status);
+	lcd.setCursor(0, 1);
+	lcd.print("     ");
+	lcd.setCursor(0, 1);
 	lcd.print(CC_value);
 }

@@ -28,10 +28,10 @@ void setup()
 void loop()
 {
 	int cc_value = 0;
+	status_t status = STATUS_OK;
 	adc_read();
-
-	Serial.print("Sample ");
-	Serial.println(sample_array[sample_index - 1]); 
-	blinking_leds(logic_main());
-	screen_loop(cc_value);
+	
+	status = logic_main(&cc_value); 
+	leds_loop(status);
+	screen_loop(cc_value, status);
 }
