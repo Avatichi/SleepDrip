@@ -8,6 +8,7 @@
 
 #include "leds.h"
 
+extern int BATTERY_ADC;
 
 void setup_screen();
 void screen_loop(int inzector_value);

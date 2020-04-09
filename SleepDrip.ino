@@ -5,6 +5,7 @@
 #include "error_values.h"
 
 int ATD = 39;
+int BATTERY_ADC = 36;
 
 int atd2 = 38;
 int sw_1 = 19;
@@ -40,4 +41,5 @@ void loop()
 	Serial.print("Sample ");
 	Serial.println(sample_array[sample_index - 1]); 
 	blinking_leds(logic_main());
+	screen_loop(50);
 }
