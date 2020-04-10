@@ -14,7 +14,7 @@ int Y_led = 14;
 int G_led = 12;
 
 
-int sample_per_sec = 100;
+int sample_per_sec = 10;
 
 void setup()
 {
@@ -24,13 +24,22 @@ void setup()
     Serial.begin(115200);
 }
 
+/* Every loop should take 1 sec */
 void loop()
 {
-	int cc_value = 0;
+
 	status_t status = STATUS_OK;
-	adc_read();
+	int i = 0;
+	int value = 0;
 	
-	status = logic_main(&cc_value); 
+	/* Sample Driver */
+	for (i = 0; i < sample_per_sec; i++) {
+		adc_read(&value);
+		append_buffer(value);
+		delay(1000 / sample_per_sec)
+	}
+	
+	status = logic_main(); 
 	leds_loop(status);
-	screen_loop(cc_value, status);
+	screen_loop(0, status);
 }

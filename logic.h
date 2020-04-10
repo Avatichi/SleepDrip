@@ -17,6 +17,6 @@ extern int max_adc_value;
 
 
 /* Call this once per second */
-status_t logic_main(int *cc_flow);
+status_t logic_main();
 
 #endif /* __LOGIC_H__ */

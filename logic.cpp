@@ -12,7 +12,7 @@ static float flow = 0;
 static int start_index = 0;
 
 /* And for stop.. remeber, in stop the pressure can go back.. we need some time to get back to the game */
-status_t logic_main(int *cc_flow)
+status_t logic_main()
 {
 
 	status_t status = STATUS_OK;
@@ -22,8 +22,6 @@ status_t logic_main(int *cc_flow)
 	else {
 
 		int diff =  sample_array[sample_index - sample_min_size] - sample_array[sample_index - 1];
-		flow += diff;
-		flow /= 2;
 
 		if (diff < expected_adc_drop_sec) {
 			adc_drop_counter++;
@@ -35,7 +33,7 @@ status_t logic_main(int *cc_flow)
 				adc_drop_counter = 0;
 			}
 		}
-		*cc_flow = flow;
+
 	}
 	return status;
 }
