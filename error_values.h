@@ -3,8 +3,10 @@
 
 typedef enum  {
     STATUS_OK = 0,
-    STATUS_WARNNING = 1,
-    STATUS_ERROR =2
+    STATUS_WARNNING,
+    STATUS_ERROR,
+    BUFFER_ERROR,
+    STATUS_DETECTING
 } status_t;
 
 #endif /* __ERROR_VALUES_H__ */

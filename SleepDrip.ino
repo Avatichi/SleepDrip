@@ -3,7 +3,10 @@
 #include "leds.h"
 #include "logic.h"
 #include "error_values.h"
+#include "circular_buffer.h"
 
+
+/* Hardware Configuration */
 int ATD = 39;
 int BATTERY_ADC = 36;
 
@@ -12,10 +15,23 @@ int Y_led = 14;
 int G_led = 12;
 
 
-/* For raw values */
-int sample_array[1000] = {0};
-int sample_index = 0;
-int sample_per_sec = 100;
+/* How many samples in a second to take
+ * from 1 to 1000 samples per second */
+int sample_per_sec = 1;
+
+/* syringe_size in cc */
+int syringe_size = 50;
+
+/* How much error to get before indicate error to user
+ * this number is the amount of time the state machine waits (in seconds)
+ * until it indicated error, to stop false positives */
+int Threshold_bad_injection = 3;
+
+/* How much time in seconds takes to detect error
+ * The bigger the number, the better the results will be, but it will take more time */
+int error_dection_time = 20;
+
+int debug = 1;
 
 void setup()
 {
@@ -25,13 +41,31 @@ void setup()
     Serial.begin(115200);
 }
 
+/* Every loop should take 1 sec */
 void loop()
 {
-	int cc_value = 0;
+
 	status_t status = STATUS_OK;
-	adc_read();
+	int i = 0;
+	int value = 0;
+
+	for (i = 0; i < sample_per_sec; i++) {
+		adc_read(&value);
+		if (debug == 1) {
+			Serial.println(value);
+		} 
+		append_buffer(value);
+		delay(1000 / sample_per_sec);
+	}
+
+	/* Sample Driver */
+	for (i = 0; i < sample_per_sec; i++) {
+		adc_read(&value);
+		append_buffer(value);
+		delay(1000 / sample_per_sec);
+	}
 	
-	status = logic_main(&cc_value); 
+	status = logic_main();
 	leds_loop(status);
-	screen_loop(cc_value, status);
+	screen_loop(0, status);
 }

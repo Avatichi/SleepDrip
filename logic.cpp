@@ -1,42 +1,41 @@
 #include "logic.h"
 
 
-static int expected_adc_drop_sec = 14 * 1024 / 50 / 60;
-static int adc_drop_counter = 0;
-static int Threshold_bad_injection = 1;
-static int sample_min_size = 20;
+static int expected_adc_drop_sec = 14 * 1024 / syringe_size / 60 / sample_per_sec;
 
+static int drop_counter;
 
-
-static float flow = 0;
-static int start_index = 0;
-
-/* And for stop.. remeber, in stop the pressure can go back.. we need some time to get back to the game */
-status_t logic_main(int *cc_flow)
+/* TODO: Do sample_per_sec times..  */
+/* TODO: support flow error currections with more samples */
+status_t logic_main()
 {
+	status_t ret = STATUS_OK;
+	int sample_len = 0;
+	int value1 = 0;
+	int value2 = 0;
+	int diff = 0;
 
-	status_t status = STATUS_OK;
-	if (start_index < sample_min_size) {
-		start_index++;
-	}
-	else {
+	get_sample_amount(&sample_len);
 
-		int diff =  sample_array[sample_index - sample_min_size] - sample_array[sample_index - 1];
-		flow += diff;
-		flow /= 2;
-
-		if (diff < expected_adc_drop_sec) {
-			adc_drop_counter++;
-			if (adc_drop_counter > Threshold_bad_injection) {
-				status = STATUS_WARNNING;
-			}
-		} else {
-			if (status == STATUS_OK) {
-				adc_drop_counter = 0;
+	if (sample_len > error_dection_time) {
+		ret = get_item_from_end(0, &value1);
+		ret = get_item_from_end((sample_len - 1), &value2);
+		if (ret != STATUS_OK) {
+			int diff = value2 - value1;
+			if (diff < expected_adc_drop_sec) {
+				drop_counter++;
+				if (drop_counter > Threshold_bad_injection) {
+					ret = STATUS_WARNNING;
+				}
+			} else {
+				if (ret == STATUS_OK) {
+					drop_counter = 0;
+				}
 			}
 		}
-		*cc_flow = flow;
+	} else {
+		ret = STATUS_DETECTING;
 	}
-	return status;
+	return ret;
 }
 
