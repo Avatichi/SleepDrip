@@ -27,9 +27,11 @@ int syringe_size = 50;
  * until it indicated error, to stop false positives */
 int Threshold_bad_injection = 3;
 
-/* How much time in seconds takes to detect error*/
+/* How much time in seconds takes to detect error
+ * The bigger the number, the better the results will be, but it will take more time */
 int error_dection_time = 20;
 
+int debug = 1;
 
 void setup()
 {
@@ -47,6 +49,15 @@ void loop()
 	int i = 0;
 	int value = 0;
 
+	for (i = 0; i < sample_per_sec; i++) {
+		adc_read(&value);
+		if (debug == 1) {
+			Serial.println(value);
+		} 
+		append_buffer(value);
+		delay(1000 / sample_per_sec);
+	}
+
 	/* Sample Driver */
 	for (i = 0; i < sample_per_sec; i++) {
 		adc_read(&value);
@@ -55,7 +66,6 @@ void loop()
 	}
 	
 	status = logic_main();
-
 	leds_loop(status);
 	screen_loop(0, status);
 }

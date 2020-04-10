@@ -12,15 +12,10 @@
 #include "error_values.h"
 
 
-/* Should change this .. */
-static int sample_array[1000];
-static int sample_index;
-
+void get_sample_amount(int *len);
 
 void append_buffer(int value);
-
 status_t get_item_from_end(int index_from_end, int *value);
-void get_sample_amount(int *len);
 
 
 #endif /* __CIRCULAR_BUFFER_H__ */

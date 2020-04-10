@@ -6,6 +6,7 @@ static int expected_adc_drop_sec = 14 * 1024 / syringe_size / 60 / sample_per_se
 static int drop_counter;
 
 /* TODO: Do sample_per_sec times..  */
+/* TODO: support flow error currections with more samples */
 status_t logic_main()
 {
 	status_t ret = STATUS_OK;

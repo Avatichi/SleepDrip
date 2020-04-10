@@ -1,25 +1,62 @@
 #include "circular_buffer.h"
 
 
+#define ARRAY_LEN   1000
+
+/* Should change this .. */
+static int sample_array[ARRAY_LEN];
+static int sample_index = -1;
+
+static int loop_state;
+
+extern int sample_per_sec;
+extern int error_dection_time; 
+
+static int max_back = error_dection_time * sample_per_sec;
+
 void append_buffer(int value)
 {
-    sample_index ++;
-    sample_array[sample_index] = value;
+
+	sample_index ++;
+	if (sample_index >= ARRAY_LEN) {
+		/* In loop state */
+		sample_index = 0;
+		loop_state = 1;
+	}
+	if (sample_index >= max_back) {
+		loop_state = 0;
+	}
+
+	sample_array[sample_index] = value;
 }
 
+/* This is kind of a lie. 
+ * Maybe change this in the futhre */
 void get_sample_amount(int *len)
 {
-    *len = sample_index;
+	if (loop_state != 1) {
+		*len = sample_index;
+	} else {
+		*len = max_back;
+	}
 }
 
 status_t get_item_from_end(int index_from_end, int *value)
 {
-    status_t ret = STATUS_OK;
-    if (sample_index < index_from_end) {
-        ret = BUFFER_ERROR;
-    } else {
-        *value = sample_array[sample_index - index_from_end];
-    }
-    return ret;
+	status_t ret = STATUS_OK;
+	
+	if (loop_state != 1) {
+		if (sample_index < index_from_end) {
+			ret = BUFFER_ERROR;
+		} else {
+			*value = sample_array[sample_index - index_from_end];
+		}
+	} else {
+		if (sample_index < index_from_end) {
+			sample_array[sample_index - index_from_end];
+		} else {
+			*value = sample_array[ARRAY_LEN - (index_from_end - sample_index)];
+		}
+	}
+	return ret;
 }
-
