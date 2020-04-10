@@ -51,7 +51,7 @@ void loop()
 	for (i = 0; i < sample_per_sec; i++) {
 		adc_read(&value);
 		append_buffer(value);
-		delay(1000 / sample_per_sec)
+		delay(1000 / sample_per_sec);
 	}
 	
 	status = logic_main();

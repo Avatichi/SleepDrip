@@ -1,7 +1,7 @@
 #include "adc_driver.h"
 
 
-static int get_adc_value(int adc_pin, int *value)
+void get_adc_value(int adc_pin, int *value)
 {
     int i = 0;
     int sum = 0;
@@ -9,8 +9,8 @@ static int get_adc_value(int adc_pin, int *value)
     /* over sample to stable the values from the ADC */
     int test_len = 1000;
 
-    for (i = 0; i < test_len2; i ++) {
-        sum += analogRead(adc_pin); 
+    for (i = 0; i < test_len; i ++) {
+        sum += analogRead(adc_pin);
     }
     *value = (sum / test_len);
 }

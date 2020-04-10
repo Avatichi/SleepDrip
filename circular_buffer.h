@@ -13,13 +13,14 @@
 
 
 /* Should change this .. */
-static int sample_array[1000] = {0};
-static int sample_index = 0;
+static int sample_array[1000];
+static int sample_index;
 
 
 void append_buffer(int value);
 
-int get_item_from_end(int index_from_end);
+status_t get_item_from_end(int index_from_end, int *value);
+void get_sample_amount(int *len);
 
 
 #endif /* __CIRCULAR_BUFFER_H__ */

@@ -6,8 +6,7 @@ typedef enum  {
     STATUS_WARNNING,
     STATUS_ERROR,
     BUFFER_ERROR,
-    STATUS_DETECTING,
-
+    STATUS_DETECTING
 } status_t;
 
 #endif /* __ERROR_VALUES_H__ */

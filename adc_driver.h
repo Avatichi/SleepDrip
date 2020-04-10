@@ -8,6 +8,6 @@
 extern int ATD;
 
 void adc_setup();
-void adc_read(int *value)
+void adc_read(int *value);
 
 #endif /* __ADC_DRIVER_H__ */
