@@ -1,4 +1,4 @@
-#include "logic.h"
+#include "include/logic.h"
 
 
 static int expected_adc_drop_sec = 14 * 1024 / syringe_size / 60 / sample_per_sec;

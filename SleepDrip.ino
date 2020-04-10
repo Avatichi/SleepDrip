@@ -1,9 +1,9 @@
-#include "screen_utils.h"
-#include "adc_driver.h"
-#include "leds.h"
-#include "logic.h"
-#include "error_values.h"
-#include "circular_buffer.h"
+#include "include/leds.h"
+#include "include/logic.h"
+#include "include/adc_driver.h"
+#include "include/error_values.h"
+#include "include/screen_utils.h"
+#include "include/circular_buffer.h"
 
 
 /* Hardware Configuration */
