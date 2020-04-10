@@ -4,19 +4,15 @@
 #include <Arduino.h>
 
 #include "error_values.h"
+#include "circular_buffer.h"
 
-
-/* For raw values */
-extern int sample_array[];
-extern int sample_index;
+/* Values from main */ 
 extern int sample_per_sec;
+extern int syringe_size;
+extern int Threshold_bad_injection;
+extern int error_dection_time;
 
-/* For cc logic */
-extern int expected_injection_time;
-extern int max_adc_value;
 
-
-/* Call this once per second */
 status_t logic_main();
 
 #endif /* __LOGIC_H__ */

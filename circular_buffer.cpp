@@ -3,8 +3,8 @@
 
 void append_buffer(int value)
 {
-    sample_array[sample_index] = value;
     sample_index ++;
+    sample_array[sample_index] = value;
 }
 
 void get_sample_amount(int *len)

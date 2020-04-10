@@ -5,7 +5,8 @@ typedef enum  {
     STATUS_OK = 0,
     STATUS_WARNNING,
     STATUS_ERROR,
-    BUFFER_ERROR
+    BUFFER_ERROR,
+    STATUS_DETECTING,
 
 } status_t;
 
