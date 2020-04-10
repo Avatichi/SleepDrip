@@ -7,11 +7,7 @@
 
 extern int ATD;
 
-extern int sample_array[];
-extern int sample_index;
-extern int sample_per_sec;
-
-void adc_read();
 void adc_setup();
+void adc_read(int *value)
 
 #endif /* __ADC_DRIVER_H__ */

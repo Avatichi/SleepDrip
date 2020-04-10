@@ -3,6 +3,8 @@
 #include "leds.h"
 #include "logic.h"
 #include "error_values.h"
+#include "circular_buffer.h"
+
 
 int ATD = 39;
 int BATTERY_ADC = 36;
@@ -12,9 +14,6 @@ int Y_led = 14;
 int G_led = 12;
 
 
-/* For raw values */
-int sample_array[1000] = {0};
-int sample_index = 0;
 int sample_per_sec = 100;
 
 void setup()
