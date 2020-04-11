@@ -6,9 +6,8 @@
 #include <LiquidCrystal_I2C.h>
 
 #include "error_values.h"
+#include "config.h"
 
-
-extern int BATTERY_ADC;
 
 void setup_screen();
 void screen_loop(int inzector_value, status_t status);

@@ -4,11 +4,7 @@
 #include <Arduino.h>
 
 #include "error_values.h"
-
-
-extern int R_led;
-extern int Y_led;
-extern int G_led;
+#include "config.h"
 
 static int blinking_status = 0;
 
