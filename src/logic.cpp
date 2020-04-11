@@ -1,7 +1,7 @@
 #include "../include/logic.h"
 
 
-static int expected_adc_drop_sec = 14 * 1024 / syringe_size / 60 / sample_per_sec;
+static int expected_adc_drop_sec = 14 * 1024 / SYRINGE_SIZE / 60 / SAMPLE_PER_SEC;
 
 static int drop_counter;
 
@@ -17,14 +17,14 @@ status_t logic_main()
 
 	get_sample_amount(&sample_len);
 
-	if (sample_len > error_dection_time) {
+	if (sample_len > ERROR_DETCTION_TIME) {
 		ret = get_item_from_end(0, &value1);
 		ret = get_item_from_end((sample_len - 1), &value2);
 		if (ret != STATUS_OK) {
 			int diff = value2 - value1;
 			if (diff < expected_adc_drop_sec) {
 				drop_counter++;
-				if (drop_counter > Threshold_bad_injection) {
+				if (drop_counter > THRESHOLD_BAD_INJECTION) {
 					ret = STATUS_WARNNING;
 				}
 			} else {

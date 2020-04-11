@@ -9,10 +9,7 @@ static int sample_index = -1;
 
 static int loop_state;
 
-extern int sample_per_sec;
-extern int error_dection_time; 
-
-static int max_back = error_dection_time * sample_per_sec;
+static int max_back = ERROR_DETCTION_TIME * SAMPLE_PER_SEC;
 
 void append_buffer(int value)
 {

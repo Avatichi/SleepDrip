@@ -10,6 +10,7 @@
 #define __CIRCULAR_BUFFER_H__
 
 #include "error_values.h"
+#include "config.h"
 
 
 void get_sample_amount(int *len);
