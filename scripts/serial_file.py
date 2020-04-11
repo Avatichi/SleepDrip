@@ -2,6 +2,7 @@
 import serial
 import argparse
 import time
+from progressbar import ProgressBar
 
 def parse_params():
     parser = argparse.ArgumentParser(
@@ -19,14 +20,16 @@ def parse_params():
 
 
 def serpipe(args):
-    start_time = time.time()
-
+    # start_time = time.time()
+    pbar = ProgressBar()
     s = serial.Serial(args.device, args.baudrate)
     with open(args.file, "a") as f:
-        while start_time + (int(args.time) * 60) > time.time():
+        #while start_time + (int(args.time) * 60) > time.time():
+        for x in pbar(range(int(args.time) * 60)):
             temp = s.read_all()
             f.write(temp)
-            
+            time.sleep(1)
+
 def main():
     args = parse_params()
     serpipe(args)
