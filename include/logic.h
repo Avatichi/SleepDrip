@@ -1,7 +1,9 @@
 #ifndef __LOGIC_H__
 #define __LOGIC_H__
 
+#ifndef TEST
 #include <Arduino.h>
+#endif /* TEST*/
 
 #include "error_values.h"
 #include "circular_buffer.h"

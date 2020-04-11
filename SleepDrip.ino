@@ -17,7 +17,7 @@ int G_led = 12;
 
 /* How many samples in a second to take
  * from 1 to 1000 samples per second */
-int sample_per_sec = 1;
+int sample_per_sec = 10;
 
 /* syringe_size in cc */
 int syringe_size = 50;
@@ -32,11 +32,15 @@ int Threshold_bad_injection = 3;
 int error_dection_time = 20;
 
 int debug = 1;
+int only_sample = 1;
 
 void setup()
 {
-	setup_leds();
-	setup_screen();	
+	if (only_sample != 1) {
+		setup_leds();
+		setup_screen();
+	}
+
 	adc_setup();
     Serial.begin(115200);
 }
@@ -44,7 +48,6 @@ void setup()
 /* Every loop should take 1 sec */
 void loop()
 {
-
 	status_t status = STATUS_OK;
 	int i = 0;
 	int value = 0;
@@ -57,15 +60,10 @@ void loop()
 		append_buffer(value);
 		delay(1000 / sample_per_sec);
 	}
-
-	/* Sample Driver */
-	for (i = 0; i < sample_per_sec; i++) {
-		adc_read(&value);
-		append_buffer(value);
-		delay(1000 / sample_per_sec);
-	}
 	
-	status = logic_main();
-	leds_loop(status);
-	screen_loop(0, status);
+	if (only_sample != 1) {
+		status = logic_main();
+		leds_loop(status);
+		screen_loop(0, status);
+	}
 }
