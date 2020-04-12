@@ -50,7 +50,7 @@ status_t get_item_from_end(int index_from_end, int *value)
 		}
 	} else {
 		if (sample_index < index_from_end) {
-			sample_array[sample_index - index_from_end];
+			*value = sample_array[sample_index - index_from_end];
 		} else {
 			*value = sample_array[ARRAY_LEN - (index_from_end - sample_index)];
 		}
