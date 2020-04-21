@@ -2,8 +2,11 @@
 #define __SCREEN_UTILS_H__
 
 #include <Arduino.h>
-#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+
+#ifdef ESP
+    #include <Wire.h>
+#endif
 
 #include "error_values.h"
 #include "config.h"

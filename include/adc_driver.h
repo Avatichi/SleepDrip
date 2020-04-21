@@ -1,7 +1,10 @@
 #ifndef __ADC_DRIVER_H__
 #define __ADC_DRIVER_H__
 
-#include <driver/adc.h>
+#ifdef ESP
+    #include <driver/adc.h>
+#endif
+
 #include <Arduino.h>
 
 #include "config.h"

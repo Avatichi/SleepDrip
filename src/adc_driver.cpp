@@ -1,6 +1,13 @@
 #include "../include/adc_driver.h"
 
 
+void adc_setup()
+{
+#ifdef ESP
+    analogReadResolution(12);
+#endif
+}
+
 void get_adc_value(int adc_pin, int *value)
 {
     int i = 0;
@@ -18,9 +25,4 @@ void get_adc_value(int adc_pin, int *value)
 void adc_read(int *value)
 {
     get_adc_value(ATD, value);
-}
-
-void adc_setup()
-{
-    analogReadResolution(12);
 }
