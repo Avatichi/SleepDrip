@@ -15,8 +15,8 @@
 
 void get_sample_amount(int *len);
 
-void append_buffer(int value);
-status_t get_item_from_end(int index_from_end, int *value);
+void append_buffer(double value);
+status_t get_item_from_end(int index_from_end, double *value);
 
 
 #endif /* __CIRCULAR_BUFFER_H__ */

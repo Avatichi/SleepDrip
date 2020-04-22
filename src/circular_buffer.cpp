@@ -4,14 +4,14 @@
 #define ARRAY_LEN   1000
 
 /* Should change this .. */
-static int sample_array[ARRAY_LEN];
+static double sample_array[ARRAY_LEN];
 static int sample_index = -1;
 
 static int loop_state;
 
 static int max_back = ERROR_DETCTION_TIME * SAMPLE_PER_SEC;
 
-void append_buffer(int value)
+void append_buffer(double value)
 {
 
 	sample_index ++;
@@ -38,7 +38,7 @@ void get_sample_amount(int *len)
 	}
 }
 
-status_t get_item_from_end(int index_from_end, int *value)
+status_t get_item_from_end(int index_from_end, double *value)
 {
 	status_t ret = STATUS_OK;
 	
