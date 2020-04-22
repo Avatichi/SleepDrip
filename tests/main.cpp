@@ -7,7 +7,7 @@
 #include "mock/mock_driver.h"
 
 
-#define FILE_PATH "../data/11CC_10dps.dat"
+#define FILE_PATH "../data/9CC_10dps.dat"
 
 
 int main()
@@ -18,7 +18,7 @@ int main()
 
     while (value != -999) {
         mock_read(&value);
-        printf("%d\n", value);
+        // printf("%d\n", value);
         append_buffer((double)value);
         logic_main();
     }
