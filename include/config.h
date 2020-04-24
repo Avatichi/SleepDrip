@@ -9,6 +9,8 @@
 #define Y_LED						14
 #define G_LED						12
 
+#define SPI_SLAVE_SELCET            10
+#define SPI_DRIVER                  1
 
 /* How many samples in a second to take
  * from 1 to 1000 samples per second */
