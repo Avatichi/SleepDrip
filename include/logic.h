@@ -7,9 +7,9 @@
     #include <Arduino.h>
 #endif /* TEST*/
 
-#include "error_values.h"
-#include "circular_buffer.h"
 #include "config.h"
+#include "sampler.h"
+#include "error_values.h"
 
 
 status_t logic_main();

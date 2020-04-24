@@ -1,10 +1,10 @@
 CC := gcc
 
 OBJECTS :=	../src/logic.o \
-			../src/circular_buffer.o \
 			../src/linreg.o \
-			main.o \
-			mock/mock_driver.o 
+			../src/sampler.o \
+			mock/mock_driver.o \
+			main.o
 
 
 INCLUDE_DIR := 	-I../include \

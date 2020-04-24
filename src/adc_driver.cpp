@@ -22,7 +22,7 @@ void get_adc_value(int adc_pin, int *value)
     *value = (sum / test_len);
 }
 
-void adc_read(int *value)
+void adc_read(double *value)
 {
     get_adc_value(ATD, value);
 }

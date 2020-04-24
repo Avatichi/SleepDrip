@@ -1,16 +1,11 @@
 #include "../include/sampler.h"
 
 
-#define ARRAY_LEN   1000
-
-/* Should change this .. */
 static double sample_array[ARRAY_LEN];
 static double time_array[ARRAY_LEN];
 
 static int sample_index = -1;
 static int loop_state;
-
-static int max_back = ERROR_DETCTION_TIME * SAMPLE_PER_SEC;
 
 void append_buffer(double value, double time)
 {
@@ -21,21 +16,20 @@ void append_buffer(double value, double time)
 		sample_index = 0;
 		loop_state = 1;
 	}
-	if (sample_index >= max_back) {
+	if (sample_index >= ARRAY_LEN) {
 		loop_state = 0;
 	}
 
 	sample_array[sample_index] = value;
+	time_array[sample_index] = time;
 }
 
-/* This is kind of a lie. 
- * Maybe change this in the futhre */
 void get_sample_amount(int *len)
 {
 	if (loop_state != 1) {
 		*len = sample_index;
 	} else {
-		*len = max_back;
+		*len = ARRAY_LEN;
 	}
 }
 
@@ -59,19 +53,17 @@ status_t get_item_from_end(int index_from_end, double *value)
 	return ret;
 }
 
-//TODO
-// Finish sampler,
-// add time
+
 double get_slope()
 {
 	double res1;
 	double res2;
 	double res3;
+	int len = 0;
 
-	// if (sample_index > ERROR_DETCTION_TIME) {
-	// }
+	get_sample_amount(&len);
 
-	linreg(80, time_array, sample_array, &res1, &res2, & res3);
-
+	linreg(len, time_array, sample_array, &res1, &res2, & res3);
+	return res2;
 
 }

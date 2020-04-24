@@ -7,14 +7,23 @@ static int drop_counter;
 int _sample_len = 200;
 
 
+double slope_to_cc(double slope)
+{
+	double cc = 0;
+	cc = slope * SYRINGE_SIZE / SAMPLE_RESULATION;
+
+	return cc;
+}
+
 status_t logic_main()
 {
 	status_t ret = STATUS_OK;
-	int sample_len = 0;
-	
 	double slope = 0;
+	double cc = 0;	
+	
 	slope = get_slope();
-	printf(" %f\n", slope);
+	cc = slope_to_cc(slope);
+	printf("CC %f\n", cc);
 
 	return ret;
 }
