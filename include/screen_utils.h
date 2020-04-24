@@ -11,8 +11,7 @@
 #include "error_values.h"
 #include "config.h"
 
-
-void setup_screen();
+void setup_screen(void);
 void screen_loop(int inzector_value, status_t status);
 
 #endif /* __SCREEN_UTILS_H__ */

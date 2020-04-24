@@ -9,7 +9,7 @@
 
 #include "config.h"
 
-void adc_setup();
+void adc_setup(void);
 void adc_read(double *value);
 
 #endif /* __ADC_DRIVER_H__ */
