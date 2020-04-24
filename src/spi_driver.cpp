@@ -11,7 +11,7 @@ void spi_setup()
 void spi_read(double *value)
 {
     digitalWrite(SPI_SLAVE_SELCET, LOW);
-    // TODO: Check This, 
+    // TODO: Check This
     delayMicroseconds(10);
 
     byte adcByteHigh = SPI.transfer(0x00);
@@ -19,7 +19,7 @@ void spi_read(double *value)
     byte adcByteLow = SPI.transfer(0x00);
 
     // adcByteHigh &= 0b00000011;  // Tried excluding some bits but not sure which ones
-    digitalWrite(SPI_SLAVE_SELCET, HIGH); 
+    digitalWrite(SPI_SLAVE_SELCET, HIGH);
     // long ADCresult = ((adcByteHigh << 16) | (adcByteMid << 8) | adcByteLow );
     *value = ((adcByteHigh << 14) | (adcByteMid << 6) | (adcByteLow >> 2));
 }

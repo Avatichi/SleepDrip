@@ -48,7 +48,7 @@ void loop()
 			Serial.println(value);
 		}
 
-		// Get Read time 
+		// Get Read time
 		timestamp = get_time();
 
 		// Store value

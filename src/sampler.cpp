@@ -36,7 +36,7 @@ void get_sample_amount(int *len)
 status_t get_item_from_end(int index_from_end, double *value)
 {
 	status_t ret = STATUS_OK;
-	
+
 	if (loop_state != 1) {
 		if (sample_index < index_from_end) {
 			ret = BUFFER_ERROR;

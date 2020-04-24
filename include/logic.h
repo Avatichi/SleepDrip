@@ -11,7 +11,6 @@
 #include "sampler.h"
 #include "error_values.h"
 
-
-status_t logic_main();
+status_t logic_main(void);
 
 #endif /* __LOGIC_H__ */

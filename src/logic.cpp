@@ -19,11 +19,11 @@ status_t logic_main()
 {
 	status_t ret = STATUS_OK;
 	double slope = 0;
-	double cc = 0;	
-	
+	double cc = 0;
+
 	slope = get_slope();
 	cc = slope_to_cc(slope);
-	printf("CC %f\n", cc);
+	// printf("CC %f\n", cc);
 
 	return ret;
 }

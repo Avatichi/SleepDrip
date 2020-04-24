@@ -25,5 +25,12 @@ $(PROJECT_NAME): $(OBJECTS)
 run: $(PROJECT_NAME)
 	./$(PROJECT_NAME)
 
+checkpatch:
+	./checkpatch.pl --no-tree -f ../SleepDrip.ino
+	for f in ../src/*.cpp ../include/*.h; do ./checkpatch.pl --no-tree --ignore SPDX_LICENSE_TAG --ignore NEW_TYPEDEFS --show-types  -f $$f ;done
+
+valgrind: $(PROJECT_NAME)
+	valgrind ./$(PROJECT_NAME)
 clean:
 	rm -rf $(OBJECTS) $(PROJECT_NAME)
+

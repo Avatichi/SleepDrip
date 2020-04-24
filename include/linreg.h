@@ -8,6 +8,6 @@
 
 #define REAL double
 
-int linreg(int n, const REAL x[], const REAL y[], REAL* m, REAL* b, REAL* r);
+int linreg(int n, const REAL x[], const REAL y[], REAL *m, REAL *b, REAL *r);
 
 #endif /* __LINREG_H__ */

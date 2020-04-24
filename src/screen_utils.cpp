@@ -9,8 +9,8 @@ void batterylevel()
 	int i;
 	float vbat = (127.0f/100.0f) * 3.30f * float(analogRead(BATTERY_ADC)) / 4095.0f;
 	int bars = (4.2 - vbat) / 0.3;
-	
-	lcd.setCursor(1, 3);	
+
+	lcd.setCursor(1, 3);
 	lcd.print("[");
 	for (i = 3; i >= 0; i--) {
 		if (i < bars) {
@@ -58,7 +58,7 @@ void print_status(status_t status)
 }
 
 void screen_loop(int CC_value, status_t status)
-{    
+{
 	batterylevel();
 	print_status(status);
 	lcd.setCursor(0, 1);

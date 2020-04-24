@@ -12,7 +12,7 @@ void get_adc_value(int adc_pin, int *value)
 {
     int i = 0;
     int sum = 0;
-    
+
     /* over sample to stable the values from the ADC */
     int test_len = 1000;
 

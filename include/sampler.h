@@ -9,6 +9,6 @@
 
 void append_buffer(double value, double time);
 // status_t get_item_from_end(int index_from_end, double *value);
-double get_slope();
+double get_slope(void);
 
 #endif /* __SAMPLER_H__ */

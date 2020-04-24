@@ -12,7 +12,7 @@
 #define SPI_SLAVE_SELCET            10
 #define SPI_DRIVER                  1
 
-/* 
+/*
  * How many samples in a second to take
  * from 1 to 1000 samples per second
  */
@@ -26,16 +26,17 @@
 
 #define SAMPLE_RESULATION           4096
 
-/* 
+/*
  * How much error to get before indicate error to user
  * this number is the amount of time the state machine waits (in seconds)
  * until it indicated error, to stop false positives
  */
 #define THRESHOLD_BAD_INJECTION		3
 
-/* 
+/*
  * How much time in seconds takes to detect error
- * The bigger the number, the better the results will be, but it will take more time
+ * The bigger the number, the better the results will be
+ * but it will take more time
  */
 #define ERROR_DETCTION_TIME			20
 
