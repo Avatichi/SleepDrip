@@ -1,9 +1,10 @@
 #include "include/leds.h"
 #include "include/logic.h"
 #include "include/config.h"
+#include "include/sampler.h"
 #include "include/error_values.h"
 #include "include/screen_utils.h"
-#include "include/circular_buffer.h"
+
 #ifdef SPI_DRIVER
 	#include "include/spi_driver.h"
 #else
@@ -33,9 +34,11 @@ void loop()
 	status_t status = STATUS_OK;
 	int i = 0;
 	int value = 0;
+	double timestamp = 0;
 
 	for (i = 0; i < SAMPLE_PER_SEC; i++) {
 
+		// Read From driver
 #ifdef SPI_DRIVER
 		spi_read(&value);
 #else
@@ -44,13 +47,19 @@ void loop()
 		if (DEBUG) {
 			Serial.println(value);
 		}
-		append_buffer(value);
+
+		// Get Read time 
+		timestamp = get_time();
+
+		// Store value
+		append_buffer(value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
 
-	if (!ONLY_SAMPLE) {
-		status = logic_main();
-		leds_loop(status);
-		screen_loop(0, status);
-	}
+#ifndef ONLY_SAMPLE
+	status = logic_main();
+	leds_loop(status);
+	screen_loop(0, status);
+#endif
+
 }

@@ -1,9 +1,11 @@
 CC := gcc
 
-OBJECTS :=	main.o \
-			../src/logic.o \
-			../src/circular_buffer.o \
-			mock/mock_driver.o
+OBJECTS :=	../src/logic.o \
+			../src/linreg.o \
+			../src/sampler.o \
+			mock/mock_driver.o \
+			main.o
+
 
 INCLUDE_DIR := 	-I../include \
 				-I mock
@@ -19,6 +21,9 @@ $(PROJECT_NAME): $(OBJECTS)
 
 %.o: %.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+run: $(PROJECT_NAME)
+	./$(PROJECT_NAME)
 
 clean:
 	rm -rf $(OBJECTS) $(PROJECT_NAME)

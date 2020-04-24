@@ -7,6 +7,6 @@
 #include "config.h"
 
 void spi_setup();
-void spi_read(int *value);
+void spi_read(double *value);
 
 #endif /* __SPI_DRIVER_H__ */

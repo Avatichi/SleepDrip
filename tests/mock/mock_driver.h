@@ -5,6 +5,6 @@
 #include <stdlib.h>
 
 void mock_setup(char *file_name);
-void mock_read(int *value);
+void mock_read(double *value);
 
 #endif /* __MOCK_DRIVER_H__ */
