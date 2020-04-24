@@ -27,6 +27,7 @@ run: $(PROJECT_NAME)
 	./$(PROJECT_NAME)
 
 checkpatch:
+	chmod +x $(CHECKPATCH)
 	$(CHECKPATCH) --no-tree -f ../SleepDrip.ino
 	for f in ../src/*.cpp ../include/*.h; do $(CHECKPATCH) --no-tree --ignore SPDX_LICENSE_TAG --ignore NEW_TYPEDEFS --show-types  -f $$f ;done
 
