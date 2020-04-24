@@ -14,6 +14,7 @@ CFLAGS :=  $(INCLUDE_DIR) -DTEST
 LDFLAGS := -lm
 
 PROJECT_NAME := tests
+CHECKPATCH := $(PWD)/tests/checkpatch.pl
 
 $(PROJECT_NAME): $(OBJECTS)
 	$(info $(OBJECTS))
@@ -26,8 +27,8 @@ run: $(PROJECT_NAME)
 	./$(PROJECT_NAME)
 
 checkpatch:
-	./checkpatch.pl --no-tree -f ../SleepDrip.ino
-	for f in ../src/*.cpp ../include/*.h; do ./checkpatch.pl --no-tree --ignore SPDX_LICENSE_TAG --ignore NEW_TYPEDEFS --show-types  -f $$f ;done
+	$(CHECKPATCH) --no-tree -f ../SleepDrip.ino
+	for f in ../src/*.cpp ../include/*.h; do $(CHECKPATCH) --no-tree --ignore SPDX_LICENSE_TAG --ignore NEW_TYPEDEFS --show-types  -f $$f ;done
 
 valgrind: $(PROJECT_NAME)
 	valgrind ./$(PROJECT_NAME)

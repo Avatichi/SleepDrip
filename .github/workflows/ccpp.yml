@@ -17,5 +17,5 @@ jobs:
     - name: make run
       run: make -C tests run
     - name: make checkpatch
-      run: make -C tests run
+      run: make -C tests checkpatch
 
