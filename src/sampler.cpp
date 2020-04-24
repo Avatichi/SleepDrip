@@ -1,17 +1,18 @@
-#include "../include/circular_buffer.h"
+#include "../include/sampler.h"
 
 
 #define ARRAY_LEN   1000
 
 /* Should change this .. */
 static double sample_array[ARRAY_LEN];
-static int sample_index = -1;
+static double time_array[ARRAY_LEN];
 
+static int sample_index = -1;
 static int loop_state;
 
 static int max_back = ERROR_DETCTION_TIME * SAMPLE_PER_SEC;
 
-void append_buffer(double value)
+void append_buffer(double value, double time)
 {
 
 	sample_index ++;
@@ -56,4 +57,21 @@ status_t get_item_from_end(int index_from_end, double *value)
 		}
 	}
 	return ret;
+}
+
+//TODO
+// Finish sampler,
+// add time
+double get_slope()
+{
+	double res1;
+	double res2;
+	double res3;
+
+	// if (sample_index > ERROR_DETCTION_TIME) {
+	// }
+
+	linreg(80, time_array, sample_array, &res1, &res2, & res3);
+
+
 }

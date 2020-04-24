@@ -10,7 +10,7 @@
 #include "error_values.h"
 #include "circular_buffer.h"
 #include "config.h"
-#include "linreg.h"
+
 
 status_t logic_main();
 
