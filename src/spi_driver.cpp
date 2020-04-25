@@ -8,7 +8,7 @@ void spi_setup()
 }
 
 
-void spi_read(double *value)
+void spi_read(DATA_TYPE *value)
 {
     digitalWrite(SPI_SLAVE_SELCET, LOW);
     // TODO: Check This, 

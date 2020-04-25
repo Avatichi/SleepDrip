@@ -7,19 +7,20 @@
 #include "mock/mock_driver.h"
 
 
-#define FILE_PATH "../data/9CC_10dps.dat"
+#define FILE_PATH "../data/5CC_10dps.dat"
 
 int main()
 {
-    double value;
-    double index = 900;
+    DATA_TYPE value;
+    TIME_TYPE index = 900;
     mock_setup(FILE_PATH);
 
     while (value != -999) {
-        index += 10;
+        index += 1;
         mock_read(&value);
         // printf("sample %f\n", value);
-        append_buffer((double)value, index);
+        printf("index %d\n", index);
+        append_buffer(value, index);
         logic_main();
     }
 }

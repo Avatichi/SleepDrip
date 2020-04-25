@@ -8,7 +8,7 @@ void adc_setup()
 #endif
 }
 
-void get_adc_value(int adc_pin, int *value)
+void adc_read(DATA_TYPE *value)
 {
     int i = 0;
     int sum = 0;
@@ -17,12 +17,7 @@ void get_adc_value(int adc_pin, int *value)
     int test_len = 1000;
 
     for (i = 0; i < test_len; i ++) {
-        sum += analogRead(adc_pin);
+        sum += analogRead(ATD);
     }
-    *value = (sum / test_len);
-}
-
-void adc_read(double *value)
-{
-    get_adc_value(ATD, value);
+    *value = (DATA_TYPE)(sum / test_len);
 }

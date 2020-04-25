@@ -7,8 +7,10 @@
 
 // void get_sample_amount(int *len);
 
-void append_buffer(double value, double time);
-// status_t get_item_from_end(int index_from_end, double *value);
-double get_slope();
+void append_buffer(DATA_TYPE value, TIME_TYPE time);
+
+SLOPE_TYPE get_slope();
+
+void print_samples();
 
 #endif /* __SAMPLER_H__ */

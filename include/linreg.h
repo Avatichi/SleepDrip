@@ -5,9 +5,8 @@
 #include <math.h>
 #include <stddef.h>
 
+#include "config.h"
 
-#define REAL double
-
-int linreg(int n, const REAL x[], const REAL y[], REAL* m, REAL* b, REAL* r);
+int linreg(int n, const TIME_TYPE x[], const DATA_TYPE y[], SLOPE_TYPE* m, SLOPE_TYPE* b, SLOPE_TYPE* r);
 
 #endif /* __LINREG_H__ */

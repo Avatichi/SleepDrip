@@ -1,28 +1,29 @@
 #include "../include/linreg.h"
+#include <stdio.h>
 
-
-REAL sqr(REAL x) {
+SLOPE_TYPE sqr(SLOPE_TYPE x) {
     return x * x;
 }
 
 
-int linreg(int n, const REAL x[], const REAL y[], REAL* m, REAL* b, REAL* r)
+
+int linreg(int n, const TIME_TYPE x[], const DATA_TYPE y[], SLOPE_TYPE* m, SLOPE_TYPE* b, SLOPE_TYPE* r)
 {
-	REAL   sumx = 0.0;                      /* sum of x     */
-	REAL   sumx2 = 0.0;                     /* sum of x**2  */
-	REAL   sumxy = 0.0;                     /* sum of x * y */
-	REAL   sumy = 0.0;                      /* sum of y     */
-	REAL   sumy2 = 0.0;                     /* sum of y**2  */
+	SLOPE_TYPE   sumx = 0.0;                      /* sum of x     */
+	SLOPE_TYPE   sumx2 = 0.0;                     /* sum of x**2  */
+	SLOPE_TYPE   sumxy = 0.0;                     /* sum of x * y */
+	SLOPE_TYPE   sumy = 0.0;                      /* sum of y     */
+	SLOPE_TYPE   sumy2 = 0.0;                     /* sum of y**2  */
 
 	for (int i = 0; i < n; i++) { 
-		sumx  += x[i];
-		sumx2 += sqr(x[i]);
-		sumxy += x[i] * y[i];
-		sumy  += y[i];      
-		sumy2 += sqr(y[i]); 
+		sumx  += (SLOPE_TYPE)x[i];
+		sumx2 += sqr((SLOPE_TYPE)x[i]);
+		sumxy += x[i] * (SLOPE_TYPE)y[i];
+		sumy  += (SLOPE_TYPE)y[i];
+		sumy2 += sqr((SLOPE_TYPE)y[i]);
 	} 
 
-	REAL denom = (n * sumx2 - sqr(sumx));
+	SLOPE_TYPE denom = (n * sumx2 - sqr(sumx));
 	if (denom == 0) {
 		// singular matrix. can't solve the problem.
 		*m = 0;

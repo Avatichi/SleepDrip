@@ -14,10 +14,11 @@
 
 void setup()
 {
-	if (!ONLY_SAMPLE) {
+
+#ifndef ONLY_SAMPLE
 		setup_leds();
 		setup_screen();
-	}
+#endif
 
 #ifdef SPI_DRIVER
 	spi_setup();
@@ -33,8 +34,8 @@ void loop()
 {
 	status_t status = STATUS_OK;
 	int i = 0;
-	int value = 0;
-	double timestamp = 0;
+	DATA_TYPE value = 0;
+	TIME_TYPE timestamp = 0;
 
 	for (i = 0; i < SAMPLE_PER_SEC; i++) {
 
@@ -49,8 +50,8 @@ void loop()
 		}
 
 		// Get Read time 
-		timestamp = get_time();
-
+		// timestamp = get_time();
+		timestamp = 1;
 		// Store value
 		append_buffer(value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);

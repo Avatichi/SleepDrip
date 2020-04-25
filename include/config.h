@@ -1,6 +1,8 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
+#include <stdint.h>
+
 /* Hardware Configuration */
 #define ATD							39
 #define BATTERY_ADC					36
@@ -12,14 +14,19 @@
 #define SPI_SLAVE_SELCET            10
 #define SPI_DRIVER                  1
 
+
+#define DATA_TYPE                   uint16_t
+#define TIME_TYPE                   uint16_t
+#define SLOPE_TYPE                  float
+
 /* 
  * How many samples in a second to take
  * from 1 to 1000 samples per second
  */
-#define SAMPLE_PER_SEC				10
+#define SAMPLE_PER_SEC				1
 
 /* On how many samples to calculate slope */
-#define ARRAY_LEN                   1000
+#define ARRAY_LEN                   700
 
 /* syringe_size in cc */
 #define SYRINGE_SIZE				50
