@@ -1,14 +1,7 @@
 #include "../include/sampler.h"
 #include <stdio.h>
 
-static DATA_TYPE sample_array[ARRAY_LEN];
-static TIME_TYPE time_array[ARRAY_LEN];
-
-static int sample_index = -1;
-static int loop_state;
-
-
-void print_samples()
+void Sampler::print_samples()
 {
 	int i = 0;
 	for (i = 0; i < ARRAY_LEN; i++) {
@@ -18,7 +11,7 @@ void print_samples()
 
 }
 
-void append_buffer(DATA_TYPE value, TIME_TYPE time)
+void Sampler::append_buffer(DATA_TYPE value, TIME_TYPE time)
 {
 
 	sample_index ++;
@@ -35,7 +28,7 @@ void append_buffer(DATA_TYPE value, TIME_TYPE time)
 	time_array[sample_index] = time;
 }
 
-void get_sample_amount(int *len)
+void Sampler::get_sample_amount(int *len)
 {
 	// TODO : fix this!
 	if (loop_state != 1) {
@@ -45,9 +38,7 @@ void get_sample_amount(int *len)
 	}
 }
 
-
-
-SLOPE_TYPE get_slope()
+SLOPE_TYPE Sampler::get_slope()
 {
 	SLOPE_TYPE res1;
 	SLOPE_TYPE res2;

@@ -5,8 +5,6 @@ SLOPE_TYPE sqr(SLOPE_TYPE x) {
     return x * x;
 }
 
-
-
 int linreg(int n, const TIME_TYPE x[], const DATA_TYPE y[], SLOPE_TYPE* m, SLOPE_TYPE* b, SLOPE_TYPE* r)
 {
 	SLOPE_TYPE   sumx = 0.0;                      /* sum of x     */

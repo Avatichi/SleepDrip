@@ -10,13 +10,13 @@ void mock_setup(char *file_name)
 
 void mock_read(DATA_TYPE *value)
 {
-	char line[6];
+	char line[10];
 	int temp_value = 0;
-
-	if (fgets(line, 6, in_file) != NULL) {
-		   sscanf(line, "%d", &temp_value); 
+	 *value = 0;
+	if (fgets(line, 10, in_file) != NULL) {
+		   sscanf(line, "%d", &temp_value);
 		   *value = (DATA_TYPE)temp_value;
 	} else {
-        *value = -999;
+        *value = SAMPLE_RESULATION;
     }
 }

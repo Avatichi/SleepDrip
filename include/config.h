@@ -16,7 +16,7 @@
 
 
 #define DATA_TYPE                   uint16_t
-#define TIME_TYPE                   uint16_t
+#define TIME_TYPE                   uint8_t
 #define SLOPE_TYPE                  float
 
 /* 
@@ -26,7 +26,7 @@
 #define SAMPLE_PER_SEC				1
 
 /* On how many samples to calculate slope */
-#define ARRAY_LEN                   700
+#define ARRAY_LEN                   3000
 
 /* syringe_size in cc */
 #define SYRINGE_SIZE				50

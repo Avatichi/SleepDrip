@@ -36,6 +36,7 @@ void loop()
 	int i = 0;
 	DATA_TYPE value = 0;
 	TIME_TYPE timestamp = 0;
+	Sampler sampler;
 
 	for (i = 0; i < SAMPLE_PER_SEC; i++) {
 
@@ -53,12 +54,12 @@ void loop()
 		// timestamp = get_time();
 		timestamp = 1;
 		// Store value
-		append_buffer(value, timestamp);
+		sampler.append_buffer(value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
 
 #ifndef ONLY_SAMPLE
-	status = logic_main();
+	status = logic_main(sampler);
 	leds_loop(status);
 	screen_loop(0, status);
 #endif
