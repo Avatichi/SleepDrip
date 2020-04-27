@@ -11,6 +11,7 @@
 	#include "include/adc_driver.h"
 #endif
 
+sampler_t sampler;
 
 void setup()
 {
@@ -26,19 +27,25 @@ void setup()
 	adc_setup();
 #endif
 
+	init_sample(&sampler);
 	Serial.begin(115200);
 }
+
+
+static int logic_index = 0;
 
 /* Every loop should take 1 sec */
 void loop()
 {
 	status_t status = STATUS_OK;
-	int i = 0;
+	int sample_index = 0;
 	DATA_TYPE value = 0;
 	TIME_TYPE timestamp = 0;
-	Sampler sampler;
 
-	for (i = 0; i < SAMPLE_PER_SEC; i++) {
+	DATA_TYPE sum = 0;
+
+
+	for (sample_index = 0; sample_index < SAMPLE_PER_SEC; sample_index++) {
 
 		// Read From driver
 #ifdef SPI_DRIVER
@@ -46,22 +53,32 @@ void loop()
 #else
 		adc_read(&value);
 #endif
+		// Get Read time 
+		timestamp = millis();
+
 		if (DEBUG) {
-			Serial.println(value);
+			Serial.print(value);
+			Serial.print(", ");
+			Serial.println(timestamp);
 		}
 
-		// Get Read time 
-		// timestamp = get_time();
-		timestamp = 1;
 		// Store value
-		sampler.append_buffer(value, timestamp);
+		append_buffer(&sampler, value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
 
 #ifndef ONLY_SAMPLE
-	status = logic_main(sampler);
-	leds_loop(status);
-	screen_loop(0, status);
+
+	SLOPE_TYPE cc = 0;
+	
+	// status = logic_main(&sampler, &cc);
+
+	// Serial.print("CC: ");
+	// Serial.println();
+
+ 
+	// leds_loop(status);
+	// screen_loop(0, status);
 #endif
 
 }

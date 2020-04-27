@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifndef TEST
+#include <HardwareSerial.h>
+#endif
+
 /* Hardware Configuration */
 #define ATD							39
 #define BATTERY_ADC					36
@@ -16,8 +20,8 @@
 
 
 #define DATA_TYPE                   uint16_t
-#define TIME_TYPE                   uint8_t
-#define SLOPE_TYPE                  float
+#define TIME_TYPE                   uint32_t
+#define SLOPE_TYPE                  double
 
 /* 
  * How many samples in a second to take
@@ -26,12 +30,12 @@
 #define SAMPLE_PER_SEC				1
 
 /* On how many samples to calculate slope */
-#define ARRAY_LEN                   3000
+#define ARRAY_LEN                   2000 // 120
 
 /* syringe_size in cc */
-#define SYRINGE_SIZE				50
+#define SYRINGE_SIZE				60
 
-#define SAMPLE_RESULATION           4096
+#define SAMPLE_RESULATION           65553
 
 /* 
  * How much error to get before indicate error to user

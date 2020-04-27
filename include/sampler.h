@@ -5,18 +5,18 @@
 #include "linreg.h"
 #include "error_values.h"
 
-
-class Sampler{
+typedef struct sampler {
 	DATA_TYPE sample_array[ARRAY_LEN];
 	TIME_TYPE time_array[ARRAY_LEN];
-    int sample_index = -1;
+    int sample_index;
     int loop_state;
-	
-	public:
-		void print_samples();
-		void append_buffer(DATA_TYPE value, TIME_TYPE time);
-		void get_sample_amount(int *len);
-        SLOPE_TYPE get_slope();
-};
+} sampler_t;
+
+void init_sample(sampler_t *sampler);
+void print_samples(sampler_t *sampler);
+void append_buffer(sampler_t *sampler, DATA_TYPE value, TIME_TYPE time);
+void get_sample_amount(sampler_t *sampler, int *len);
+SLOPE_TYPE get_slope(sampler_t *sampler);
+
 
 #endif /* __SAMPLER_H__ */

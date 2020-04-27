@@ -7,19 +7,25 @@
 #include "mock/mock_driver.h"
 
 
-#define FILE_PATH "../data/9CC_10dps.dat"
-
 int main()
 {
+	DATA_TYPE sample_array[ARRAY_LEN] = {0};
+	TIME_TYPE timestamp_array[ARRAY_LEN] = {0};
+	
+	
 	DATA_TYPE value;
-	TIME_TYPE index = 900;
-	mock_setup(FILE_PATH);
-	Sampler sampler;
-	while (value != SAMPLE_RESULATION) {
-		index += 1;
-		mock_read(&value);
+	TIME_TYPE timestamp;
+	SLOPE_TYPE cc = 0;
+	mock_setup();
+	sampler_t sampler;
+	init_sample(&sampler);
 
-		sampler.append_buffer(value, index);
-		logic_main(sampler);
+	while (value != END_FLAG) {
+		mock_read(&value, &timestamp);
+
+		// printf("%d, %d\n", value, timestamp);
+		append_buffer(&sampler, value, timestamp);
+		logic_main(&sampler, &cc);
+		printf("CC: %f\n", cc);
 	}
 }

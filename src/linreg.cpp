@@ -1,11 +1,13 @@
 #include "../include/linreg.h"
+
 #include <stdio.h>
+
 
 SLOPE_TYPE sqr(SLOPE_TYPE x) {
     return x * x;
 }
 
-int linreg(int n, const TIME_TYPE x[], const DATA_TYPE y[], SLOPE_TYPE* m, SLOPE_TYPE* b, SLOPE_TYPE* r)
+int linreg(int n, const DATA_TYPE x[], const TIME_TYPE y[], SLOPE_TYPE* m, SLOPE_TYPE* b, SLOPE_TYPE* r)
 {
 	SLOPE_TYPE   sumx = 0.0;                      /* sum of x     */
 	SLOPE_TYPE   sumx2 = 0.0;                     /* sum of x**2  */
@@ -36,5 +38,50 @@ int linreg(int n, const TIME_TYPE x[], const DATA_TYPE y[], SLOPE_TYPE* m, SLOPE
 		*r = (sumxy - sumx * sumy / n) /    /* compute correlation coeff */
 				sqrt((sumx2 - sqr(sumx) / n) * (sumy2 - sqr(sumy)/n));
 	}
+
+	// Serial.print("intercept: ");
+	// Serial.println(*b);
+
+	// Serial.print("slope: ");
+	// Serial.println(*m);
+	
+	// Serial.print("CC: ");
+	// Serial.println(*m / 80 * -1);
+
+	// Serial.print("corralation coefficient: ");
+	// Serial.println(*r);
+
 	return 0;
+}
+
+SLOPE_TYPE slope(const TIME_TYPE *x, const DATA_TYPE* y, int len)
+{
+	int i = 0;
+	TIME_TYPE sumx = 0;
+	DATA_TYPE sumy = 0;
+	SLOPE_TYPE avgX;
+    SLOPE_TYPE avgY;
+	SLOPE_TYPE numerator = 0.0;
+    SLOPE_TYPE denominator = 0.0;
+	if (len == 0){
+		return 0;
+	}
+	for (i = 0; i < len; i++) {
+		sumx += x[i];
+		sumy += y[i];
+	}
+
+    avgX = sumx / len;
+    avgY = sumy / len;
+
+    for(size_t i=0; i < len; ++i){
+        numerator += (x[i] - avgX) * (y[i] - avgY);
+        denominator += (x[i] - avgX) * (x[i] - avgX);
+    }
+
+    if(denominator == 0.0){
+        return 0;
+    }
+
+    return numerator / denominator;
 }
