@@ -27,10 +27,10 @@
  * How many samples in a second to take
  * from 1 to 1000 samples per second
  */
-#define SAMPLE_PER_SEC				1
+#define SAMPLE_PER_SEC				20
 
 /* On how many samples to calculate slope */
-#define ARRAY_LEN                   2000 // 120
+#define ARRAY_LEN                   100 // 120
 
 /* syringe_size in cc */
 #define SYRINGE_SIZE				60

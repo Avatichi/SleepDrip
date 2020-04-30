@@ -1,7 +1,7 @@
 #include "mock_driver.h"
 #include <inttypes.h>
 
-#define FILE_PATH "../data/15cc_1_27_4_20.txt"
+#define FILE_PATH "../data/6cc_1_27_4_20.txt"
 static FILE *in_file;
 
 void mock_setup()

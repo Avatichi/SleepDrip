@@ -55,7 +55,7 @@ void loop()
 #endif
 		// Get Read time 
 		timestamp = millis();
-
+		sum += value;
 		if (DEBUG) {
 			Serial.print(value);
 			Serial.print(", ");
@@ -66,6 +66,8 @@ void loop()
 		append_buffer(&sampler, value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
+	sum /= SAMPLE_PER_SEC;
+	sum = 0;
 
 #ifndef ONLY_SAMPLE
 
@@ -78,7 +80,7 @@ void loop()
 
  
 	// leds_loop(status);
-	// screen_loop(0, status);
+	// screen_loop(value, status);
 #endif
 
 }
