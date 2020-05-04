@@ -12,6 +12,12 @@
 #include "sampler.h"
 #include "error_values.h"
 
-status_t logic_main(sampler_t *sampler, SLOPE_TYPE *cc);
+typedef struct logic_struct {
+    int index;
+    SLOPE_TYPE running_cc;
+    status_t status;
+} logic_status_t;
+
+void logic_main(sampler_t *sampler, logic_status_t *logic_status);
 
 #endif /* __LOGIC_H__ */

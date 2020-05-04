@@ -9,13 +9,28 @@ static SLOPE_TYPE slope_to_cc(SLOPE_TYPE slope)
 	return cc;
 }
 
-status_t logic_main(sampler_t *sampler, SLOPE_TYPE *cc)
+
+
+
+void logic_main(sampler_t *sampler,logic_status_t *logic_status)
 {
 	status_t ret = STATUS_OK;
 	SLOPE_TYPE slope = 0;
+
+	logic_status->index++;
+
+	if (logic_status->index < START_SAMPLE) {
+		logic_status->status = STATUS_DETECTING;
+		return;
+	}
 	
 	slope = get_slope(sampler);
-	*cc = slope_to_cc(slope);
 
-	return ret;
+	if (logic_status->running_cc == 0){
+		logic_status->running_cc += slope_to_cc(slope);		
+	}
+	
+	logic_status->running_cc += slope_to_cc(slope);
+	logic_status->running_cc /= 2;
+
 }

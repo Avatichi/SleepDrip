@@ -7,5 +7,6 @@
 
 void setup_buttons();
 void get_button_status(leds_status_t *leds_status);
+int should_start();
 
 #endif /* __BUTTONS_H__ */

@@ -14,13 +14,14 @@
 
 sampler_t sampler;
 leds_status_t led_status;
+logic_status_t logic_status;
 
 void setup()
 {	
 	setup_buttons();
 	setup_leds(&led_status);
 
-	setup_screen();
+	// setup_screen();
 
 #ifdef SPI_DRIVER
 	spi_setup();
@@ -32,48 +33,52 @@ void setup()
 	Serial.begin(BAUDRATE_DEBUG);
 }
 
-
-void loop()
+void main_loop_iteration()
 {
-	status_t status = STATUS_OK;
 	int sample_index = 0;
 
-	SLOPE_TYPE cc = 0;
 	DATA_TYPE value = 0;
 	TIME_TYPE timestamp = 0;
 
 	for (sample_index = 0; sample_index < SAMPLE_PER_SEC; sample_index++) {
 
-		// Read From driver
 #ifdef SPI_DRIVER
 		spi_read(&value);
 #else
 		adc_read(&value);
 #endif
-
-		// Get Read time
 		timestamp = millis();
 
 #ifdef DEBUG
-		// Serial.print(value);
+		Serial.println(value);
 		// Serial.print(", ");
 		// Serial.println(timestamp);
 #endif
-		// Store value
 		append_buffer(&sampler, value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
 
-	status = logic_main(&sampler, &cc);
+	logic_main(&sampler, &logic_status);
 
 #ifdef DEBUG
-	Serial.print("CC: ");
-	Serial.println(cc);
+	// Serial.print("CC: ");
+	// Serial.println(cc);
 #endif
 
 	get_button_status(&led_status);
 
 	should_led(led_status);
 
-	screen_loop(value, status);
+	// screen_loop(value, status);
+}
+
+void loop()
+{
+	// if (should_start()) {
+		while (1) {
+			Serial.println("Start");
+			main_loop_iteration();
+		}
+	// }
+
 }
