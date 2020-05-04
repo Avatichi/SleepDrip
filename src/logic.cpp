@@ -13,7 +13,6 @@ status_t logic_main(sampler_t *sampler, SLOPE_TYPE *cc)
 {
 	status_t ret = STATUS_OK;
 	SLOPE_TYPE slope = 0;
-	// SLOPE_TYPE cc = 0;
 	
 	slope = get_slope(sampler);
 	*cc = slope_to_cc(slope);

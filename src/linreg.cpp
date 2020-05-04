@@ -39,18 +39,6 @@ int linreg(int n, const DATA_TYPE x[], const TIME_TYPE y[], SLOPE_TYPE* m, SLOPE
 				sqrt((sumx2 - sqr(sumx) / n) * (sumy2 - sqr(sumy)/n));
 	}
 
-	// Serial.print("intercept: ");
-	// Serial.println(*b);
-
-	// Serial.print("slope: ");
-	// Serial.println(*m);
-	
-	// Serial.print("CC: ");
-	// Serial.println(*m / 80 * -1);
-
-	// Serial.print("corralation coefficient: ");
-	// Serial.println(*r);
-
 	return 0;
 }
 

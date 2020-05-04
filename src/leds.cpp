@@ -16,7 +16,15 @@ void setup_leds()
     turn_off_all_leds();
 }
 
-/* This function change the led based on status
+
+void should_led(leds_status_t led_status)
+{
+    digitalWrite(R_LED, led_status.should_red);
+    digitalWrite(G_LED, led_status.should_green);
+    digitalWrite(Y_LED, led_status.should_yellow);
+}
+/*
+ * This function change the led based on status
  * Green  - OK
  * Yellow - should refill
  * Red    - error

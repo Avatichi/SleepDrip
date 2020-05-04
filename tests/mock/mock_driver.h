@@ -3,11 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 
 #include "config.h"
 #include "driver_ops.h"
 
-void mock_setup();
+#define END_FLAG        1
+
+
+void mock_setup(const void *priv);
 void mock_read(DATA_TYPE *value, TIME_TYPE *timestamp);
 
 // struct driver_ops mock_driver_ops {
@@ -15,5 +19,4 @@ void mock_read(DATA_TYPE *value, TIME_TYPE *timestamp);
 //     .read = mock_read
 // };
 
-#define END_FLAG        1
 #endif /* __MOCK_DRIVER_H__ */

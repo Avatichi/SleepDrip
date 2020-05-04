@@ -1,6 +1,7 @@
 #include "include/leds.h"
 #include "include/logic.h"
 #include "include/config.h"
+#include "include/buttons.h"
 #include "include/sampler.h"
 #include "include/error_values.h"
 #include "include/screen_utils.h"
@@ -16,10 +17,9 @@ sampler_t sampler;
 void setup()
 {
 
-#ifndef ONLY_SAMPLE
-		setup_leds();
-		setup_screen();
-#endif
+	setup_buttons();
+	setup_leds();
+	setup_screen();
 
 #ifdef SPI_DRIVER
 	spi_setup();
@@ -28,22 +28,19 @@ void setup()
 #endif
 
 	init_sample(&sampler);
-	Serial.begin(115200);
+	Serial.begin(BAUDRATE_DEBUG);
 }
 
 
-static int logic_index = 0;
-
-/* Every loop should take 1 sec */
 void loop()
 {
 	status_t status = STATUS_OK;
 	int sample_index = 0;
+
+	SLOPE_TYPE cc = 0;
 	DATA_TYPE value = 0;
 	TIME_TYPE timestamp = 0;
-
-	DATA_TYPE sum = 0;
-
+	leds_status_t led_status;
 
 	for (sample_index = 0; sample_index < SAMPLE_PER_SEC; sample_index++) {
 
@@ -53,34 +50,29 @@ void loop()
 #else
 		adc_read(&value);
 #endif
-		// Get Read time 
-		timestamp = millis();
-		sum += value;
-		if (DEBUG) {
-			Serial.print(value);
-			Serial.print(", ");
-			Serial.println(timestamp);
-		}
 
+		// Get Read time
+		timestamp = millis();
+
+#ifdef DEBUG
+		Serial.print(value);
+		Serial.print(", ");
+		Serial.println(timestamp);
+#endif
 		// Store value
 		append_buffer(&sampler, value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
 	}
-	sum /= SAMPLE_PER_SEC;
-	sum = 0;
 
-#ifndef ONLY_SAMPLE
+	status = logic_main(&sampler, &cc);
 
-	SLOPE_TYPE cc = 0;
-	
-	// status = logic_main(&sampler, &cc);
-
+#ifdef DEBUG
 	// Serial.print("CC: ");
-	// Serial.println();
-
- 
-	// leds_loop(status);
-	// screen_loop(value, status);
+	// Serial.println(cc);
 #endif
 
+	get_button_status(&led_status);
+	should_led(led_status);
+
+	screen_loop(value, status);
 }

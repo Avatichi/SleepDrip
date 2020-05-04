@@ -1,8 +1,12 @@
 #ifndef __LOGIC_H__
 #define __LOGIC_H__
 
+
+#ifdef TEST
 #include <stdio.h>
-// #include <Arduino.h>
+#else
+#include <Arduino.h>
+#endif
 
 #include "config.h"
 #include "sampler.h"

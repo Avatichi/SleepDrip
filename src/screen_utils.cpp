@@ -59,7 +59,7 @@ void print_status(status_t status)
 
 void screen_loop(int CC_value, status_t status)
 {    
-	batterylevel();
+	// batterylevel();
 	print_status(status);
 	lcd.setCursor(0, 1);
 	lcd.print("     ");
