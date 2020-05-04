@@ -1,4 +1,5 @@
 # serpipe :)
+import os
 import serial
 import argparse
 import time
@@ -33,6 +34,7 @@ def serpipe(args):
 def main():
     args = parse_params()
     serpipe(args)
+    os.system("spd-say 'Sample Done'")
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,7 @@ OBJECTS :=	../src/logic.o \
 INCLUDE_DIR := 	-I../include \
 				-I mock
 
-CFLAGS :=  $(INCLUDE_DIR) -DTEST
+CFLAGS :=  $(INCLUDE_DIR) -DTEST -g
 LDFLAGS := -lm
 
 PROJECT_NAME := tests

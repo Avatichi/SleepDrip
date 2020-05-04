@@ -2,17 +2,21 @@
 
 static FILE *in_file;
 
-void mock_setup(char *file_name)
+void mock_setup(const void *priv)
 {
-	in_file = fopen(file_name, "r");
+	in_file = fopen((char *)priv, "r");
 }
 
-void mock_read(double *value)
+void mock_read(DATA_TYPE *value, TIME_TYPE *timestamp)
 {
-	char line[6];
-	if (fgets(line, 6, in_file) != NULL) {
-		   sscanf(line, "%lf", value);
+	int temp_value = 0;
+	int temp_time = 0;
+
+	if(fscanf(in_file, "%d, %d\n", &temp_value, &temp_time) != EOF){
+		*value = (DATA_TYPE)temp_value;
+		*timestamp = (TIME_TYPE)temp_time;
 	} else {
-        *value = -999;
+        *value = END_FLAG;
+		*timestamp = END_FLAG;
     }
 }

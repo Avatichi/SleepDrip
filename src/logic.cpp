@@ -1,30 +1,37 @@
 #include "../include/logic.h"
 
-
 static int expected_adc_drop_sec = 14 * 1024 / SYRINGE_SIZE / 60 / SAMPLE_PER_SEC;
-static int drop_counter;
 
-int _sample_len = 200;
-
-
-double slope_to_cc(double slope)
+static SLOPE_TYPE slope_to_cc(SLOPE_TYPE slope)
 {
-	double cc = 0;
-	cc = slope * SYRINGE_SIZE / SAMPLE_RESULATION;
-
+	SLOPE_TYPE cc = 0;
+	cc = slope; //* SYRINGE_SIZE / SAMPLE_RESULATION / SAMPLE_PER_SEC;
 	return cc;
 }
 
-status_t logic_main()
+
+
+
+void logic_main(sampler_t *sampler,logic_status_t *logic_status)
 {
 	status_t ret = STATUS_OK;
-	double slope = 0;
-	double cc = 0;
+	SLOPE_TYPE slope = 0;
 
-	slope = get_slope();
-	cc = slope_to_cc(slope);
-	// printf("CC %f\n", cc);
+	logic_status->index++;
 
-	return ret;
+	if (logic_status->index < START_SAMPLE) {
+		logic_status->status = STATUS_DETECTING;
+		return;
+	}
+	
+	slope = get_slope(sampler);
+
+
+	if (logic_status->running_cc == 0){
+		logic_status->running_cc += slope_to_cc(slope);		
+	}
+	
+	logic_status->running_cc += slope_to_cc(slope);
+	logic_status->running_cc /= 2;
+
 }
-
