@@ -12,6 +12,7 @@
 #include "sampler.h"
 #include "error_values.h"
 
+
 typedef struct logic_struct {
     int index;
     SLOPE_TYPE running_cc;

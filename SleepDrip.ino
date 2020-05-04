@@ -48,9 +48,10 @@ void main_loop_iteration()
 		adc_read(&value);
 #endif
 		timestamp = millis();
+		}
 
 #ifdef DEBUG
-		Serial.println(value);
+  Serial.println(value);
 		// Serial.print(", ");
 		// Serial.println(timestamp);
 #endif

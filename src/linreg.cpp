@@ -23,6 +23,7 @@ int linreg(int n, const DATA_TYPE x[], const TIME_TYPE y[], SLOPE_TYPE* m, SLOPE
 		sumy2 += sqr((SLOPE_TYPE)y[i]);
 	} 
 
+
 	SLOPE_TYPE denom = (n * sumx2 - sqr(sumx));
 	if (denom == 0) {
 		// singular matrix. can't solve the problem.

@@ -41,6 +41,7 @@ void get_sample_amount(sampler_t *sampler, int *len)
 	// TODO : fix this!
 	if (sampler->loop_state != 1) {
 		*len = sampler->sample_index;
+
 	} else {
 		*len = ARRAY_LEN;
 	}

@@ -6,7 +6,6 @@
 #include "error_values.h"
 #include "config.h"
 
-
 typedef struct leds_status {
     int should_red;
     int should_yellow;

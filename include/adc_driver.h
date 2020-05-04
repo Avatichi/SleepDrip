@@ -14,4 +14,5 @@ static struct driver_ops adc_driver_ops {
     .read = adc_read
 };
 
+
 #endif /* __ADC_DRIVER_H__ */

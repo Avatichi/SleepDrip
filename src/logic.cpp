@@ -26,6 +26,7 @@ void logic_main(sampler_t *sampler,logic_status_t *logic_status)
 	
 	slope = get_slope(sampler);
 
+
 	if (logic_status->running_cc == 0){
 		logic_status->running_cc += slope_to_cc(slope);		
 	}

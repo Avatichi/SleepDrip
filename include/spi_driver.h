@@ -8,6 +8,7 @@
 #include "config.h"
 
 void spi_setup(void);
+
 void spi_read(DATA_TYPE *value);
 
 static struct driver_ops spi_driver_ops {

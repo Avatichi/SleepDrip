@@ -18,5 +18,4 @@ void append_buffer(sampler_t *sampler, DATA_TYPE value, TIME_TYPE time);
 void get_sample_amount(sampler_t *sampler, int *len);
 SLOPE_TYPE get_slope(sampler_t *sampler);
 
-
 #endif /* __SAMPLER_H__ */
