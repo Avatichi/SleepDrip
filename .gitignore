@@ -2,3 +2,4 @@
 SleepDrip.code-workspace
 *.o
 tests
+archive/*

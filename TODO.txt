@@ -4,4 +4,3 @@ Fix time bug
 support start button
 change screen display values
 add if the values are above threshold dont append them
-Reorder data samples

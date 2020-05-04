@@ -8,8 +8,12 @@ void turn_off_all_leds()
     digitalWrite(R_LED, LOW);
 }
 
-void setup_leds()
+void setup_leds(leds_status_t* led_status)
 {
+	led_status->should_green = LOW;
+	led_status->should_yellow = LOW;
+	led_status->should_red = LOW;
+
     pinMode(R_LED, OUTPUT);
     pinMode(Y_LED, OUTPUT);
     pinMode(G_LED, OUTPUT);

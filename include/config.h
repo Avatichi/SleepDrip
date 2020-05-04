@@ -29,7 +29,7 @@
  * How many samples in a second to take
  * from 1 to 1000 samples per second
  */
-#define SAMPLE_PER_SEC				10
+#define SAMPLE_PER_SEC				100
 
 /* On how many samples to calculate slope */
 #define ARRAY_LEN                   150 // 120

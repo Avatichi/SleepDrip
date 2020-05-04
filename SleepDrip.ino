@@ -13,12 +13,13 @@
 #endif
 
 sampler_t sampler;
+leds_status_t led_status;
 
 void setup()
-{
-
+{	
 	setup_buttons();
-	setup_leds();
+	setup_leds(&led_status);
+
 	setup_screen();
 
 #ifdef SPI_DRIVER
@@ -40,7 +41,6 @@ void loop()
 	SLOPE_TYPE cc = 0;
 	DATA_TYPE value = 0;
 	TIME_TYPE timestamp = 0;
-	leds_status_t led_status;
 
 	for (sample_index = 0; sample_index < SAMPLE_PER_SEC; sample_index++) {
 
@@ -55,9 +55,9 @@ void loop()
 		timestamp = millis();
 
 #ifdef DEBUG
-		Serial.print(value);
-		Serial.print(", ");
-		Serial.println(timestamp);
+		// Serial.print(value);
+		// Serial.print(", ");
+		// Serial.println(timestamp);
 #endif
 		// Store value
 		append_buffer(&sampler, value, timestamp);
@@ -67,11 +67,12 @@ void loop()
 	status = logic_main(&sampler, &cc);
 
 #ifdef DEBUG
-	// Serial.print("CC: ");
-	// Serial.println(cc);
+	Serial.print("CC: ");
+	Serial.println(cc);
 #endif
 
 	get_button_status(&led_status);
+
 	should_led(led_status);
 
 	screen_loop(value, status);

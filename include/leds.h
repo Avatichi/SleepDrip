@@ -15,7 +15,7 @@ typedef struct leds_status {
 
 static int blinking_status = 0;
 
-void setup_leds();
+void setup_leds(leds_status_t *led_status);
 void turn_off_all_leds();
 void leds_loop(status_t status);
 void should_led(leds_status_t led_status);
