@@ -12,6 +12,7 @@ typedef struct sampler {
     int loop_state;
 } sampler_t;
 
+int is_empty(sampler_t *sampler);
 void init_sample(sampler_t *sampler);
 void print_samples(sampler_t *sampler);
 void append_buffer(sampler_t *sampler, DATA_TYPE value, TIME_TYPE time);

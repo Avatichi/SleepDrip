@@ -48,12 +48,11 @@ void main_loop_iteration()
 		adc_read(&value);
 #endif
 		timestamp = millis();
-		}
 
 #ifdef DEBUG
-  Serial.println(value);
-		// Serial.print(", ");
-		// Serial.println(timestamp);
+		Serial.print(value);
+		Serial.print(", ");
+		Serial.println(timestamp);
 #endif
 		append_buffer(&sampler, value, timestamp);
 		delay(1000 / SAMPLE_PER_SEC);
@@ -62,12 +61,12 @@ void main_loop_iteration()
 	logic_main(&sampler, &logic_status);
 
 #ifdef DEBUG
-	// Serial.print("CC: ");
-	// Serial.println(cc);
+	Serial.print("CC: ");
+	Serial.println(logic_status.running_cc);
 #endif
 
-	get_button_status(&led_status);
-
+	// get_button_status(&led_status);
+	convert_status_to_leds(logic_status, &led_status);
 	should_led(led_status);
 
 	// screen_loop(value, status);
@@ -75,11 +74,9 @@ void main_loop_iteration()
 
 void loop()
 {
-	// if (should_start()) {
+	if (should_start()) {
 		while (1) {
-			Serial.println("Start");
 			main_loop_iteration();
 		}
-	// }
-
+	}
 }

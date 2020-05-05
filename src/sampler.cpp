@@ -47,6 +47,11 @@ void get_sample_amount(sampler_t *sampler, int *len)
 	}
 }
 
+int is_empty(sampler_t *sampler)
+{
+	return !(sampler->sample_array[sampler->sample_index] > (SAMPLE_RESULATION / 10));
+}
+
 SLOPE_TYPE get_slope(sampler_t *sampler)
 {
 	SLOPE_TYPE res1;
