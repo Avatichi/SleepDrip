@@ -19,7 +19,7 @@
 #include "Debug.h"
 #include <stdio.h>
 
-COLOR Buffer[OLED_BUFSIZ];
+COLOR Buffer[1];
 
 OLED_DIS sOLED_DIS;
 /*******************************************************************************
@@ -246,29 +246,19 @@ void OLED_SetWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend)
 ********************************************************************************/
 void OLED_SetColor(POINT Xpoint, POINT Ypoint, COLOR Color)
 {
-  if (Xpoint > sOLED_DIS.OLED_Dis_Column || Ypoint > sOLED_DIS.OLED_Dis_Page) {
-    return;
-  }
-#if USE_INT_RAM
-  if (Xpoint % 2 == 0) {
-    Buffer[Xpoint / 2 + Ypoint * 64] = (Color << 4) | Buffer[Xpoint / 2 + Ypoint * 64];
-  } else {
-    Buffer[Xpoint / 2 + Ypoint * 64] = (Color & 0x0f) | Buffer[Xpoint / 2 + Ypoint * 64];
-  }
-
-#elif USE_EXT_RAM
-  uint8_t R_Buf;
-  
-  //1 byte control two points
-  R_Buf = SPIRAM_RD_Byte(Xpoint / 2 + Ypoint * 64);
-  if (Xpoint % 2 == 0) {
-    SPIRAM_WR_Byte(Xpoint / 2 + Ypoint * 64, (Color << 4) | R_Buf);
-  } else {
-    SPIRAM_WR_Byte(Xpoint / 2 + Ypoint * 64, (Color & 0x0f) | R_Buf);
-  }
-#endif
+  OLED_SetWindow(Xpoint / 2, Ypoint, 1, 1);
+  OLED_WriteData(Color);
 }
 
+void OLED_ClearLine(COLOR Color, POINT line)
+{
+  unsigned int i, m;
+#if USE_INT_RAM
+  OLED_SetWindow(0, line, sOLED_DIS.OLED_Dis_Column, sOLED_DIS.OLED_Dis_Page);
+  for (i = 0; i < sOLED_DIS.OLED_Dis_Page; i++) {
+    OLED_WriteData(Color);
+  }
+}
 /********************************************************************************
   function:
 			Clear screen
@@ -276,59 +266,14 @@ void OLED_SetColor(POINT Xpoint, POINT Ypoint, COLOR Color)
 void OLED_ClearScreen(COLOR Color)
 {
   unsigned int i, m;
-#if USE_INT_RAM
   OLED_SetWindow(0, 0, sOLED_DIS.OLED_Dis_Column, sOLED_DIS.OLED_Dis_Page);
   for (i = 0; i < sOLED_DIS.OLED_Dis_Page; i++) {
     for (m = 0; m < (sOLED_DIS.OLED_Dis_Column / 2); m++) {
       OLED_WriteData(Color);     
     }
   }
-#elif USE_EXT_RAM
-  for (i = 0; i < sOLED_DIS.OLED_Dis_Page; i++) {
-    for (m = 0; m < (sOLED_DIS.OLED_Dis_Column / 2); m++) {
-      SPIRAM_WR_Byte(i * 64 + m, Color | (Color << 4));
-    }
-  }
-#endif
 }
 
-void OLED_ClearBuf()
-{
-  unsigned int i, m;
-  for (i = 0; i < BUFSIZ / (sOLED_DIS.OLED_Dis_Column / 2); i++) {
-    for (m = 0; m < (sOLED_DIS.OLED_Dis_Column / 2); m++) {
-      Buffer[i * (sOLED_DIS.OLED_Dis_Column / 2) + m] = 0x00;
-    }
-  }
-}
-/********************************************************************************
-  function:	Update all memory to LCD
-********************************************************************************/
-void OLED_Display(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend)
-{
-  uint16_t page, Column;
-
-  OLED_SetWindow(Xstart, Ystart, Xend, Yend);
-#if USE_INT_RAM
-  COLOR *pBuf = (COLOR *)Buffer;
-  //write data
-  for (page = 0; page < BUFSIZ / (sOLED_DIS.OLED_Dis_Column / 2); page++) {
-    for (Column = 0; Column < sOLED_DIS.OLED_Dis_Column / 2; Column++ ) {
-      OLED_WriteData(*pBuf);
-      pBuf++;
-    }
-  }
-#elif USE_EXT_RAM
-  //write data
-  uint8_t R_Buf;
-  for (page = 0; page < sOLED_DIS.OLED_Dis_Page; page++) {
-    for (Column = 0; Column < sOLED_DIS.OLED_Dis_Column / 2; Column++ ) {
-      R_Buf = SPIRAM_RD_Byte(page * 64 + Column);
-      OLED_WriteData(R_Buf);
-    }
-  }
-#endif
-}
 
 /********************************************************************************
   function:
@@ -341,21 +286,13 @@ void OLED_ClearWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend, COLOR 
   Ylen = Yend - Ystart;
 
   uint16_t Offset = Xstart + Ystart * (sOLED_DIS.OLED_Dis_Column / 2);
-#if USE_INT_RAM
   for (i = 0; i < Ylen; i++) {
     for (m = 0; m < Xlen; m++) {
       Buffer[Offset + m] = Color;
     }
     Offset = Xstart + (Ystart + i + 1) * (sOLED_DIS.OLED_Dis_Column / 2);
   }
-#elif USE_EXT_RAM
-  for (i = 0; i < Ylen; i++) {
-    for (m = 0; m < Xlen; m++) {
-      SPIRAM_WR_Byte(Offset + m, Color | (Color << 4));
-    }
-    Offset = Xstart + (Ystart + i) * (sOLED_DIS.OLED_Dis_Column / 2);
-  }
-#endif
+
 }
 
 /********************************************************************************
@@ -367,8 +304,7 @@ void OLED_DisWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend)
   Xlen = (Xend - Xstart) / 2;
   Ylen = Yend - Ystart;
   OLED_SetWindow(Xstart, Ystart, Xend, Yend);
-#if USE_INT_RAM
-  //write data
+
   COLOR *pBuf = (COLOR *)Buffer + Xstart + Ystart * (sOLED_DIS.OLED_Dis_Column / 2);
   for (page = 0; page < Ylen; page++) {
     for (Column = 0; Column < Xlen; Column++ ) {
@@ -377,18 +313,6 @@ void OLED_DisWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend)
     }
     pBuf = (COLOR *)Buffer + Xstart + (Ystart + page + 1) * (sOLED_DIS.OLED_Dis_Column / 2);
   }
-#elif USE_EXT_RAM
-  //write data
-  uint16_t Offset = Xstart + Ystart * (sOLED_DIS.OLED_Dis_Column / 2);
-  uint8_t	R_Buf;
-  for (page = 0; page < Ylen; page++) {
-    for (Column = 0; Column < Xlen; Column++ ) {
-      R_Buf = SPIRAM_RD_Byte(Offset + Column);
-      OLED_WriteData(R_Buf);
-    }
-    Offset = Xstart + (Ystart + page) * (sOLED_DIS.OLED_Dis_Column / 2);
-  }
-#endif
 }
 
 void OLED_DisPage(unsigned int Column_Num, unsigned int Page_Num)

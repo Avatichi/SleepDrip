@@ -44,8 +44,8 @@ function:
 #define USE_OLED_RAM 0
 
 #if USE_INT_RAM
-    #define XByte 16 // 64 //1 BYTE = 2dot,X max Dot = 128
-    #define YByte 16 //1 Byte = 1Dot,y max Dot = 128 
+    #define XByte 64 // 64 //1 BYTE = 2dot,X max Dot = 128
+    #define YByte 64 //1 Byte = 1Dot,y max Dot = 128 
 #elif USE_EXT_RAM
     #define XByte (OLED_WIDTH / 2)
     #define YByte OLED_HEIGHT
@@ -106,6 +106,7 @@ void OLED_Display(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend);
 //Local screen operation
 void OLED_ClearWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend, COLOR Color);
 void OLED_DisWindow(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend);
+void OLED_ClearLine(COLOR Color, POINT line);
 
 //Combination operation
 void OLED_DisPage(unsigned int Column_Num, unsigned int Page_Num);

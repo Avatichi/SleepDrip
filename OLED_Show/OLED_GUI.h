@@ -30,7 +30,7 @@ typedef enum {
     DOT_PIXEL_7X7  , 		// dot pixel 7 X 7
     DOT_PIXEL_8X8  , 		// dot pixel 8 X 8
 } DOT_PIXEL;
-#define DOT_PIXEL_DFT  DOT_PIXEL_8X8  //Default dot pilex
+#define DOT_PIXEL_DFT  DOT_PIXEL_1X1  //Default dot pilex
 
 /********************************************************************************
 function:

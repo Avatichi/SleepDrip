@@ -37,14 +37,14 @@ uint8_t System_Init(void)
   Serial.println("USE_I2C");
   OLED_DC_1;//DC = 1 => Address = 0x3d
   OLED_CS_0;
-  Wire.setClock(1000000);
+  Wire.setClock(10000);
   Wire.begin();
 
   //SET SPIRAM SPI
-  SPI.setDataMode(SPI_MODE0);
-  SPI.setBitOrder(MSBFIRST);
-  SPI.setClockDivider(SPI_CLOCK_DIV2);
-  SPI.begin();
+  // SPI.setDataMode(SPI_MODE0);
+  // SPI.setBitOrder(MSBFIRST);
+  // SPI.setClockDivider(SPI_CLOCK_DIV2);
+  // SPI.begin();
 #endif
   return 0;
 }
