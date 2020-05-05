@@ -5,8 +5,8 @@
 * | date		:	2017 - 12 - 12
 * | function	:	23K256 DRIVER
 ******************************************************************************/
-#include "DEV_Config.h"
-#include "SPI_RAM.h"
+#include "../include/DEV_Config.h"
+#include "../include/SPI_RAM.h"
 
 /*******************************************************************************
 function:

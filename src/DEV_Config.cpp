@@ -6,7 +6,7 @@
   | function	:
 	Provide the hardware underlying interface
 ******************************************************************************/
-#include "DEV_Config.h"
+#include "../include/DEV_Config.h"
 
 /********************************************************************************
   function:	System Init and exit

@@ -32,11 +32,11 @@
  * How many samples in a second to take
  * from 1 to 1000 samples per second
  */
-#define SAMPLE_PER_SEC				10
-#define START_SAMPLE_SEC			5 // 300
+#define SAMPLE_PER_SEC				3 // 3
+#define START_SAMPLE_SEC			60
 
 /* On how many samples to calculate slope */
-#define ARRAY_LEN					150
+#define ARRAY_LEN					100
 
 /* syringe_size in cc */
 #define SYRINGE_SIZE				60
@@ -57,6 +57,10 @@
  */
 #define ERROR_DETCTION_TIME			20
 
+
+#define FIRST_INFO_LINE             85
+#define SECOND_INFO_LINE            105
+#define START_OFFSET                5
 
 /* Testing */
 #define FILE_PATH "../data/n5cc_1.txt"

@@ -10,9 +10,9 @@
   Achieve display characters: Display a single character, string, number
   Achieve time display: adaptive size display time minutes and seconds
 ******************************************************************************/
-#include "OLED_GUI.h"
-#include "DEV_Config.h"
-#include "Debug.h"
+#include "../include/OLED_GUI.h"
+#include "../include/DEV_Config.h"
+#include "../include/Debug.h"
 #include <stdio.h>
 
 extern OLED_DIS sOLED_DIS;

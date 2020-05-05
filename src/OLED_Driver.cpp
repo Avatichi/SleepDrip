@@ -14,9 +14,9 @@
   good display, so joined a SPIRAM (23K256) chipmodule used to do the
   screen cache, so there Conducive to display.
 ******************************************************************************/
-#include "OLED_Driver.h"
-#include "SPI_RAM.h"
-#include "Debug.h"
+#include "../include/OLED_Driver.h"
+
+#include "../include/Debug.h"
 #include <stdio.h>
 
 COLOR Buffer[1];
@@ -253,7 +253,6 @@ void OLED_SetColor(POINT Xpoint, POINT Ypoint, COLOR Color)
 void OLED_ClearLine(COLOR Color, POINT line)
 {
   unsigned int i, m;
-#if USE_INT_RAM
   OLED_SetWindow(0, line, sOLED_DIS.OLED_Dis_Column, sOLED_DIS.OLED_Dis_Page);
   for (i = 0; i < sOLED_DIS.OLED_Dis_Page; i++) {
     OLED_WriteData(Color);
